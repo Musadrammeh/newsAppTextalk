@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "631582003731",
+    "project_id": "prenlys-9135b",
+    "storage_bucket": "prenlys-9135b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631582003731:android:874092e8212d6105b925e6",
+        "android_client_info": {
+          "package_name": "com.example.newsapptt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631582003731-rh9huqpo5ggv7rl2hl7eeun8e91c3dit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPX6PW3tYYMXkC6L62Sek0TeEw2sBnpCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631582003731-rh9huqpo5ggv7rl2hl7eeun8e91c3dit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
