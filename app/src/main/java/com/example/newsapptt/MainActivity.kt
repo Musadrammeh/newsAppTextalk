@@ -27,15 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
-import coil.ImageLoader
-import coil.compose.rememberImagePainter
+
 import com.example.newsapptt.ui.theme.NewsAppTTTheme
 
 data class NewsSite(
     val id: Int,
     val section: Int,
     val name: String,
-    val imageUrl: String
 )
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     id = i,
                     section = section,
                     name = "NEWS",
-                    imageUrl = "https://news.google.com"
+
 
                 )
             )
@@ -134,15 +132,6 @@ fun Greeting(name: String) {
         )
         
     }
-}
-@Composable
-fun ImageLoader(imageUrl: String){
-    Image(
-        painter = rememberImagePainter(imageUrl),
-        contentDescription = null,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier.size(120.dp)
-    )
 }
 
 
