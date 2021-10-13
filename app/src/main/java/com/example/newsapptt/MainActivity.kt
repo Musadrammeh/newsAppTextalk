@@ -27,118 +27,66 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 import com.example.newsapptt.ui.theme.NewsAppTTTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-data class NewsSite(
-    val id: Int,
-    val section: Int,
-    val name: String,
-)
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-
-        val newsSites = arrayListOf<NewsSite>()
-        var section = 1
-
-        for (i in 1..100){
-
-            if (i % 15 == 0)
-                section++
-            newsSites.add(
-                NewsSite(
-                    id = i,
-                    section = section,
-                    name = "NEWS",
-
-
-                )
-            )
-        }
-
-        setContent {
+        setContent { 
             NewsAppTTTheme {
-                MyScreenContent()
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = "news_list_screen"
+                ){
+                    composable("news_list_screen"){
+
+                    }
+                    composable(
+                        "news_category_screen/{dominantColor}/{newsName}",
+                        arguments = listOf(
+                            navArgument("dominantColor"){
+                                type = NavType.IntType
+                            },
+                            navArgument("newsName"){
+                                type=NavType.StringType
+                            }
+                        )
+
+                    ){
+                        val dominantColor = remember{
+                            val color = it.arguments?.getInt("dominantColor")
+                            color?.let { Color(it) } ?: Color.White
+                        }
+                        val newsName = remember{
+                            it.arguments?.getString("newsName")
+                        }
+                    }
+                }
             }
         }
     }
-}
 
-@Composable
-fun NewsApp(Unit: () -> Unit){
-    NewsAppTTTheme {
-        // A surface container using the 'background' color from the theme
-        Surface(color = MaterialTheme.colors.background) {
-            Unit()
-        }
+    @Preview
+    @Composable
+    fun ComposablePreview() {
+        SimpleComposable()
     }
-}
-@Composable
-fun AppName(String: HeaderViewListAdapter){
-
-}
-
-// Show message multiple times without duplicating code
-@Composable
-fun MyScreenContent(names: List<String> = List(100){"Click Newspaper of Choice $it"}){
-    Column (modifier = Modifier.fillMaxHeight()){
-        Divider(color = Color.Gray, thickness = 1.dp)
-        NewsList(names = names, modifier = Modifier.weight(1f))
-        Button()
-
+    @Composable
+    fun SimpleComposable() {
+        Text("Hello World")
     }
+
     
-}
 
-@Composable
-fun NewsList(names: List<String>, modifier: Modifier = Modifier){
-    LazyColumn(modifier = modifier) {
-        items(items = names){
-            Greeting(name = it)
-            Divider(color = Color.Gray, thickness = 1.dp)
-        }
-    }
-}
-
-@Composable
-fun Button(){
-    var button by  remember {
-        mutableStateOf(0)
-    }
-    Button(onClick = { button }) {
-        Text(text = "Click to start reading Newspaper of choice",
-            fontSize = 15.sp,
-            modifier = Modifier.padding(8.dp))
-
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    var isSelected by remember{
-        mutableStateOf(false)
-    }
-    val targetColor : Color by animateColorAsState(
-        targetValue= if (isSelected) MaterialTheme.colors.primary else Color.Transparent,
-            )
-    Surface(color = targetColor) {
-        Text(
-            text = "Hello, $name!",
-            modifier = Modifier
-                .clickable { isSelected = !isSelected }
-                .padding(16.dp)
-
-        )
-        
-    }
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    NewsAppTTTheme {
-        MyScreenContent()
-    }
-}
