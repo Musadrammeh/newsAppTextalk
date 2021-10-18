@@ -7,6 +7,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -24,11 +26,27 @@ object AppModule {
     @Singleton
     @Provides
     fun provideNewsApi(): NewsAPI{
+        val clientBuilder = OkHttpClient.Builder()
+            .addInterceptor(createLogger())
+            .build()
+
+
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
+            .client(clientBuilder)
             .baseUrl(BASE_URL)
             .build()
             .create(NewsAPI::class.java)
     }
 
+    /**
+     * Create a network logger that prints body and header
+     * @return interceptor that logs headers and body
+     */
+    private fun createLogger(): HttpLoggingInterceptor {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        return interceptor
+    }
 }
