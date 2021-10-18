@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
                     }
                     composable(
-                        "news_category_screen/{dominantColor}/{newsName}",
+                        "article_list_screen/{dominantColor}/{newsName}",
                         arguments = listOf(
                             navArgument("dominantColor"){
                                 type = NavType.IntType
