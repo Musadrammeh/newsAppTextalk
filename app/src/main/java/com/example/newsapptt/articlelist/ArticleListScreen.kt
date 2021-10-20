@@ -39,7 +39,7 @@ import androidx.leanback.widget.SearchBar
 import androidx.navigation.NavController
 import coil.request.ImageRequest
 import com.example.newsapptt.R
-import com.example.newsapptt.data.remote.response.models.ArticleListEntry
+import com.example.newsapptt.data.remote.response.models.Article
 import com.google.accompanist.coil.CoilImage
 import com.google.firebase.database.collection.LLRBNode
 import java.time.format.TextStyle
@@ -134,7 +134,7 @@ fun ArticleList(
 
 @Composable
 fun ArticleListEntry(
-    entry: ArticleListEntry,
+    entry: Article,
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: ArticleListViewModel = hiltViewModel()
@@ -160,7 +160,7 @@ fun ArticleListEntry(
             )
             .clickable {
                 navController.navigate(
-                    "news_category_screen${dominantColor.toArgb()}/${entry.articleName}"
+                    "news_category_screen${dominantColor.toArgb()}/${entry.urlToImage}"
                 )
 
             }
@@ -170,7 +170,7 @@ fun ArticleListEntry(
                 request = ImageRequest.Builder(LocalContext.current)
                     .data(entry)
                     .build(),
-                contentDescription = entry.articleName,
+                contentDescription = entry.content,
                 modifier = Modifier
                     .size((120.dp))
                     .align(CenterHorizontally)
@@ -189,7 +189,7 @@ fun ArticleListEntry(
 @Composable
 fun ArticleRow(
     rowIndex: Int,
-    entries: List<ArticleListEntry>,
+    entries: List<Article>,
     navController: NavController
 ){
     Column {

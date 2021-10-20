@@ -1,27 +1,29 @@
 package com.example.newsapptt.remote
 
-import com.example.newsapptt.data.remote.response.Article
-import com.example.newsapptt.data.remote.response.News
-import com.example.newsapptt.data.remote.response.Source
+import com.example.newsapptt.data.remote.response.models.News
+import com.example.newsapptt.data.remote.response.models.Source
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface NewsAPI {
 
-    @GET("Article")
+    @GET("everything")
     suspend fun getArticleList(
         @Query("limit") limit:Int,
         @Query("offset") offset: Int
-    ): Article
+    ): Call<News>
 
-    @GET("Article/{News}")
+    @GET("Article")
     suspend fun getNews(
         @Path("News") News: String
-    ):News
+    ):Call<News>
 
-    @GET("Article/{Source}")
+    @GET("Source")
     suspend fun getSource(
         @Path("Source") Source: String
-    ): Source
+    ): Call<Source>
+
+    abstract fun <T> Call(): Nothing
 }
