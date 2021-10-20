@@ -1,10 +1,11 @@
 package com.example.newsapptt.repository
 
-import com.example.newsapptt.data.remote.response.Article
-import com.example.newsapptt.data.remote.response.News
-import com.example.newsapptt.data.remote.response.Source
+import androidx.compose.ui.input.key.Key.Companion.Call
+import com.example.newsapptt.data.remote.response.models.News
 import com.example.newsapptt.remote.NewsAPI
-import com.example.newsapptt.util.Resource
+import com.example.newsapptt.data.remote.response.Result
+import com.example.newsapptt.data.remote.response.models.Article
+import com.example.newsapptt.data.remote.response.models.Source
 import dagger.hilt.android.scopes.ActivityScoped
 import java.lang.Exception
 import javax.inject.Inject
@@ -13,28 +14,27 @@ import javax.inject.Inject
 class NewsRepository @Inject constructor(
     private val api: NewsAPI
 ){
-    suspend fun getArticleList(limit: Int, offset: Int): Resource<Article> {
+    suspend fun getArticleList(limit: Int, offset: Int): Result<Article> {
         val response = try {
             api.getArticleList(limit, offset)
         } catch (e: Exception){
-            return Resource.Error("Error loading article")
+            return Result.Success(Article())
         }
-        return Resource.Success(response)
     }
-    suspend fun getNews(news: String): Resource<News> {
-        val response = try {
-            api.getNews(news)
+    suspend fun getNews(news: String): Result<News> {
+        val result = try {
+            api.Call<News>()
         } catch (e: Exception){
-            return Resource.Error("Error loading news")
+            return Result.Success(News())
         }
-        return Resource.Success(response)
+
     }
-    suspend fun getSource(source: String): Resource<Source> {
-        val response = try {
-            api.getSource(source)
+    suspend fun getSource(source: String): Result.Success<Source> {
+        val result = try {
+            api.Call<News>()
         } catch (e: Exception){
-            return Resource.Error("Error loading news")
+            return Result.Success(Source())
         }
-        return Resource.Success(response)
+
     }
 }

@@ -2,7 +2,7 @@ package com.example.newsapptt.di
 
 import com.example.newsapptt.remote.NewsAPI
 import com.example.newsapptt.repository.NewsRepository
-import com.example.newsapptt.util.Constant.BASE_URL
+import com.example.newsapptt.endpoint.Constant.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
