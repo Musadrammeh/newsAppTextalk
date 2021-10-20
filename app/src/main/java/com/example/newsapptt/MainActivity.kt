@@ -1,6 +1,7 @@
 package com.example.newsapptt
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
@@ -14,7 +15,7 @@ class MainActivity : ComponentActivity() {
     @Override
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
             NewsAppTTTheme{
 
