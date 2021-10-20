@@ -14,10 +14,11 @@ import javax.inject.Inject
 class NewsRepository @Inject constructor(
     private val api: NewsAPI
 ){
-    suspend fun getArticleList(limit: Int, offset: Int): Result<Article> {
+    suspend fun getArticleList(article: String): Result<Article> {
         val response = try {
-            api.getArticleList(limit, offset)
-        } catch (e: Exception){
+            api.Call<Article>()
+        }
+        catch (e: Exception){
             return Result.Success(Article())
         }
     }
